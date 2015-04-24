@@ -1,0 +1,53 @@
+.transition(@transition) {
+	-webkit-transition: @transition;
+	-moz-transition: @transition;
+	-ms-transition: @transition;
+	-o-transition: @transition;
+	transition: @transition;
+}
+
+.transform(@transform) {
+	-webkit-transform: @transform;
+	-moz-transform: @transform;
+	-ms-transform: @transform;
+	-o-transform: @transform;
+	transform: @transform;
+}
+
+.reveal {
+	@d: 10px;
+	@animation: 300ms;
+
+	>div {
+		.transition(all @animation ease-in-out);
+	}
+
+	&.fade {
+		>div {
+			opacity: 0;
+		}
+
+		&.hide>div {
+			opacity: 0;
+		}
+
+		&.show>div {
+			opacity: 1;
+		}
+	}
+	
+
+	&.slide {
+		>div {
+			.transform(translate3d(0,-@d,0));
+		}
+
+		&.hide>div {
+			.transform(translate3d(0,@d,0));
+		}
+
+		&.show>div {
+			.transform(translate3d(0,0,0));
+		}
+	}
+}
