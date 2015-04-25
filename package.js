@@ -2,7 +2,7 @@ Package.describe({
 	name: 'zhenya:reveal',
 	version: '0.0.1',
 	// Brief, one-line summary of the package.
-	summary: 'Show UI smoothly when data context changes',
+	summary: 'Animate data context changes',
 	// URL to the Git repository containing the source code for this package.
 	git: 'https://github.com/zhenyasav/reveal',
 	// By default, Meteor will default to using README.md for documentation.
