@@ -1,6 +1,6 @@
 # Reveal
 
-A Meteor package to animate data context changes. (Demo)[http://reveal.zhenya.co].
+A Meteor package to animate data context changes. [Demo](http://reveal.zhenya.co).
 
 ## Usage
 
