@@ -12,12 +12,16 @@ Template.reveal.rendered = ->
 	container = $ root?[0]?.children?[0]
 	revealedView = null
 
+	data = null
+
 	if root and container
 		@autorun =>	
-			data = Template.parentData 0
-			transition = data?.transition ? 'fade slide'
-			react = data?.reactive ? reactivity 
-			data = if 'data' of data then data.data else data
+			d = Template.parentData 0
+			transition = d?.transition ? 'fade slide'
+			react = d?.reactive ? reactivity
+			newd = if 'data' of d then d.data else data
+			return if newd is data
+			data = newd
 			
 			root.removeClass('show').addClass 'hide'
 			delay animation, =>
