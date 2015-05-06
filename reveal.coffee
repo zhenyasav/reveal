@@ -1,4 +1,4 @@
-animation = 300
+animation = 500
 domBreak = 300
 reactivity = true
 transitions = ['fade', 'slide']
@@ -16,7 +16,8 @@ Template.reveal.rendered = ->
 		@autorun =>	
 			data = Template.parentData 0
 			transition = data?.transition ? 'fade slide'
-			data = data?.data ? data
+			react = data?.reactive ? reactivity 
+			data = if 'data' of data then data.data else data
 			
 			root.removeClass('show').addClass 'hide'
 			delay animation, =>
@@ -25,7 +26,7 @@ Template.reveal.rendered = ->
 				for trans in transitions
 					root.toggleClass trans, trans in transitionClasses
 
-				if reactivity
+				if react
 					Blaze.remove revealedView if revealedView?
 					revealedView = Blaze.renderWithData @view.templateContentBlock, data, container[0]
 				else
