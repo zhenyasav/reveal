@@ -1,5 +1,5 @@
-animation = 500
-domBreak = 300
+animation = 150
+domBreak = 150
 reactivity = true
 transitions = ['fade', 'slide']
 
@@ -17,9 +17,13 @@ Template.reveal.rendered = ->
 	if root and container
 		@autorun =>	
 			d = Template.parentData 0
+			return if not d?
 			transition = d?.transition ? 'fade slide'
 			react = d?.reactive ? reactivity
-			newd = if 'data' of d then d.data else data
+			if /^\[object/.test d.toString()
+				newd = if 'data' of d then d.data else d
+			else
+				newd = d
 			return if newd is data
 			data = newd
 			
