@@ -1,6 +1,6 @@
 Package.describe({
 	name: 'zhenya:reveal',
-	version: '0.0.3',
+	version: '0.0.4',
 	// Brief, one-line summary of the package.
 	summary: 'Animate data context changes',
 	// URL to the Git repository containing the source code for this package.
