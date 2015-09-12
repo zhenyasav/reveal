@@ -38,7 +38,10 @@ Template.reveal.rendered = ->
       else
         return if (d?.data ? d) is (data?.data ? data)
       
-      data = d
+      if 'data' of d
+        childData = d.data
+      else
+        childData = d
 
       root.removeClass('show').addClass 'hide'
       delay animation, =>
@@ -47,13 +50,11 @@ Template.reveal.rendered = ->
         for trans in transitions
           root.toggleClass trans, trans in transitionClasses
 
-
-
         if react
           Blaze.remove revealedView if revealedView?
-          revealedView = Blaze.renderWithData @view.templateContentBlock, (data?.data ? data), container[0]
+          revealedView = Blaze.renderWithData @view.templateContentBlock, childData, container[0]
         else
-          html = Blaze.toHTMLWithData @view.templateContentBlock, data
+          html = Blaze.toHTMLWithData @view.templateContentBlock, childData
           container.empty().html html
 
         root.removeClass 'hide'
@@ -62,7 +63,3 @@ Template.reveal.rendered = ->
 Template.reveal.helpers
 
   transition: -> @transition ? 'fade slide'
-
-
-
-
