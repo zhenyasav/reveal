@@ -36,7 +36,6 @@ Template.reveal.rendered = ->
       if _.isObject(d) and 'triggerProperty' of d
         n = get getData(d), d.triggerProperty
         o = get getData(data), data?.triggerProperty
-        console.log {n, o}
         return if n is o
       else
         return if getData(d) is getData(data)
