@@ -10,7 +10,7 @@ get = (obj, path) ->
     path = path.split '.'
   if !path or !path.length
     obj
-  else if path[0] of obj
+  else if obj? and _.isObject(obj) and path[0] of obj
     get obj[path[0]], path.slice 1
 
 
@@ -30,18 +30,19 @@ Template.reveal.rendered = ->
       transition = d?.transition ? 'fade slide'
       classes = d?.classes ? ''
       react = d?.reactive ? reactivity
+
+      getData = (def) -> if def? and _.isObject(def) and 'data' of def then def.data else def
     
-      if 'triggerProperty' of d
-        n = d.triggerProperty
-        o = data?.triggerProperty
+      if _.isObject(d) and 'triggerProperty' of d
+        n = get getData(d), d.triggerProperty
+        o = get getData(data), data?.triggerProperty
+        console.log {n, o}
         return if n is o
       else
-        return if (d?.data ? d) is (data?.data ? data)
+        return if getData(d) is getData(data)
       
-      if 'data' of d
-        childData = d.data
-      else
-        childData = d
+      newData = getData d
+      data = d
 
       root.removeClass('show').addClass 'hide'
       delay animation, =>
@@ -52,9 +53,9 @@ Template.reveal.rendered = ->
 
         if react
           Blaze.remove revealedView if revealedView?
-          revealedView = Blaze.renderWithData @view.templateContentBlock, childData, container[0]
+          revealedView = Blaze.renderWithData @view.templateContentBlock, newData, container[0]
         else
-          html = Blaze.toHTMLWithData @view.templateContentBlock, childData
+          html = Blaze.toHTMLWithData @view.templateContentBlock, newData
           container.empty().html html
 
         root.removeClass 'hide'
